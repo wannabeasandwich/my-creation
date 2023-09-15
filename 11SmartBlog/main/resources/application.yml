@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/sblog?useUnicode=true&characterEncoding=utf8&serverTimeZone=Asia/Shanghai
+    username: root
+    password: root
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true #开启驼峰规则
+  mapper-locations: classpath:mapper/*.xml #指定mapper配置文件的路径
+  type-aliases-package: cn.tedu.pojo #指定实体类所在的包,那么需要指定实体类时,可以只写类名,不用写包名
+
+logging:
+  level:
+    cn:
+      tedu: debug

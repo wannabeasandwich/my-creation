@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <!-- import CSS -->
+    <link rel="stylesheet" href="css/eui.css">
+</head>
+<body>
+<div id="app">
+    <el-page-header style="background-color: #0095d7;color: white;line-height: 60px" @back="goBack" content="发布轮播图页面">
+    </el-page-header>
+    <el-divider></el-divider>
+    <!--limit="1" 设置只能选择一张图片-->
+    <el-upload
+            action="/upload"
+            name="picFile"
+            :limit="1"
+            list-type="picture-card"
+            :on-preview="handlePictureCardPreview"
+            :on-success="handleSuccess"
+            :on-remove="handleRemove">
+        <i class="el-icon-plus"></i>
+    </el-upload>
+    <el-dialog :visible.sync="dialogVisible">
+        <img width="100%" :src="dialogImageUrl" alt="">
+    </el-dialog>
+    <input type="button" value="发布" @click="insert()">
+</div>
+</body>
+<!-- import Vue before Element -->
+<script src="js/vue.js"></script>
+<!-- import JavaScript -->
+<script src="js/eui.js"></script>
+<script src="js/axios.min.js"></script>
+<script>
+    let v = new Vue({
+        el: '#app',
+        data: function() {
+            return {
+                dialogImageUrl: '',
+                dialogVisible: false,
+                banner:{
+                    url:""
+                }
+            }
+        },
+        methods: {
+            handleRemove(file, fileList) {
+                console.log(file, fileList);
+                //当点击删除图片时会执行,file表示要删除的文件
+                //file.response代表文件上传成功后服务器响应的文件名
+                axios.get("/remove?name="+file.response).then(function () {
+                    console.log("服务器图片已经删除!");
+                })
+            },
+            handlePictureCardPreview(file) {
+                this.dialogImageUrl = file.url;
+                this.dialogVisible = true;
+            },
+            handleSuccess(response, file, fileList) {
+                //response = file.response = 图片名
+                console.log("图片名="+response);
+                v.banner.url = response;
+            },
+            insert() {
+                //得到图片名,一起提交给服务器
+                if (v.banner.url=="") {
+                    alert("图片不能为空!");
+                    return;
+                }
+                axios.post("/banner/insert",v.banner).then(function (response) {
+                        alert("添加完成!");
+                        location.href = "/"; //跳转首页
+                })
+            },
+            goBack() {
+                history.back();
+            }
+        }
+    })
+</script>
+</html>

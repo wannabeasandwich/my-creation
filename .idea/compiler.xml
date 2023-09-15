@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="coolshark" />
+        <module name="csmall-order-webapi" />
+        <module name="SpringMVC" />
+        <module name="10ResultMapDemo" />
+        <module name="05SpringAnnoDemo" />
+        <module name="csmall-business" />
+        <module name="csmall-sso" />
+        <module name="csmall-order-service" />
+        <module name="07HikariCPDemo" />
+        <module name="csmall-stock-webapi" />
+        <module name="Axios" />
+        <module name="csmall-cart-webapi" />
+        <module name="SpringMVC2" />
+        <module name="04SpringXMLDemo" />
+        <module name="03SpringBootDemo" />
+        <module name="csmall-commons" />
+        <module name="02MavenDemo" />
+        <module name="08JDBCTemplateDemo" />
+        <module name="11SmartBlog" />
+        <module name="09MyBatisDemo" />
+        <module name="csmall-cart-service" />
+        <module name="06SpringConfigDemo" />
+        <module name="csmall-stock-service" />
+        <module name="gateway" />
+        <module name="12ExpandDemo" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="02MavenDemo" target="8" />
+      <module name="03SpringBootDemo" target="1.5" />
+      <module name="04SpringXMLDemo" target="1.5" />
+      <module name="05SpringAnnoDemo" target="1.5" />
+      <module name="06SpringConfigDemo" target="1.5" />
+      <module name="07HikariCPDemo" target="1.5" />
+      <module name="08JDBCTemplateDemo" target="1.5" />
+      <module name="09MyBatisDemo" target="1.5" />
+      <module name="10ResultMapDemo" target="1.5" />
+      <module name="11SmartBlog" target="8" />
+      <module name="12ExpandDemo" target="1.5" />
+      <module name="Axios" target="1.5" />
+      <module name="coolshark" target="1.5" />
+      <module name="csmall-business" target="1.5" />
+      <module name="csmall-cart-service" target="1.5" />
+      <module name="csmall-cart-webapi" target="1.5" />
+      <module name="csmall-commons" target="1.5" />
+      <module name="csmall-order-service" target="1.5" />
+      <module name="csmall-order-webapi" target="1.5" />
+      <module name="csmall-sso" target="1.5" />
+      <module name="csmall-stock-service" target="1.5" />
+      <module name="csmall-stock-webapi" target="1.5" />
+      <module name="gateway" target="1.5" />
+      <module name="SpringMVC" target="1.5" />
+      <module name="SpringMVC2" target="1.5" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

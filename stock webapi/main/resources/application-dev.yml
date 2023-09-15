@@ -1,0 +1,55 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/csmall_db?useSSL=false&useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&allowMultiQueries=true
+    username: root
+    password:
+  application:
+    name: nacos-stock
+  cloud:
+    sentinel:
+      transport:
+        # 配置Sentinel的仪表台
+        dashboard: localhost:8080
+        # 执行限流的端口，每个项目唯一（其他项目配置的话不能再使用8721）
+        port: 8721
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+
+# dubbo相关配置
+dubbo:
+  protocol:
+    # port: -1是dubbo框架支持的特殊写法
+    # 会自动动态生成可用的端口号，规则是从20880开始，如果被占用就递增使用
+    port: -1
+    # 设置连接名称(一般固定叫dubbo)
+    name: dubbo
+  registry:
+    # 声明注册中心的软件类型和ip端口号
+    address: nacos://localhost:8848
+  consumer:
+    # 当前项目启动时，作为消费者，是否要检查所有远程服务可用，false代表不检查
+    check: false
+
+seata:
+  # 分组名称，区分不同项目的分布式事务处理
+  tx-service-group: csmall_group
+  service:
+    vgroup-mapping:
+      # csmall_group组使用默认的seata配置完成事务
+      csmall_group: default
+    grouplist:
+      # 设置seata所在的地址(默认端口号：8091)
+      default: localhost:8091
+
+
+
+
+
+
+
+
+
+
+
+

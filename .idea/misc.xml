@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/02pom.xml" />
+        <option value="$PROJECT_DIR$/03pom.xml" />
+        <option value="$PROJECT_DIR$/04pom.xml" />
+        <option value="$PROJECT_DIR$/05pom.xml" />
+        <option value="$PROJECT_DIR$/06pom.xml" />
+        <option value="$PROJECT_DIR$/07pom.xml" />
+        <option value="$PROJECT_DIR$/08pom.xml" />
+        <option value="$PROJECT_DIR$/09pom.xml" />
+        <option value="$PROJECT_DIR$/10pom.xml" />
+        <option value="$PROJECT_DIR$/11pom.xml" />
+        <option value="$PROJECT_DIR$/12pom.xml" />
+        <option value="$PROJECT_DIR$/sso pom.xml" />
+        <option value="$PROJECT_DIR$/axiospom.xml" />
+        <option value="$PROJECT_DIR$/csmallpom.xml" />
+        <option value="$PROJECT_DIR$/webapipom.xml" />
+        <option value="$PROJECT_DIR$/commonspom.xml" />
+        <option value="$PROJECT_DIR$/gate waypom.xml" />
+        <option value="$PROJECT_DIR$/coolsharkpom.xml" />
+        <option value="$PROJECT_DIR$/springmvcpom.xml" />
+        <option value="$PROJECT_DIR$/springmvc2pom.xml" />
+        <option value="$PROJECT_DIR$/orderwebapipom.xml" />
+        <option value="$PROJECT_DIR$/stock webapipom.xml" />
+        <option value="$PROJECT_DIR$/orderservice pom.xml" />
+        <option value="$PROJECT_DIR$/stock servicepom.xml" />
+        <option value="$PROJECT_DIR$/csmall-servicepom.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+</project>

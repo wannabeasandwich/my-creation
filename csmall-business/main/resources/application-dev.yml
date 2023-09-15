@@ -1,0 +1,46 @@
+spring:
+  application:
+    # 表示当前项目名称，这个名称会在nacos注册会使用
+    name: nacos-business
+  cloud:
+    sentinel:
+      transport:
+        dashboard: localhost:8080
+        port: 8722
+    nacos:
+      discovery:
+        # nacos服务地址，便于项目提交
+        server-addr: localhost:8848
+        # 当前服务名称 默认值: ${spring.application.name}
+        # service: ${spring.application.name}
+        # 设置当前项目启动时注册到nacos的类型：true(默认)-临时实例,false-永久示例
+        # ephemeral: false
+        # 不同环境的注册的区分隔离
+        # namespace: public
+        # 设置服务分组 默认值: DEFAULT_GROUP
+        # group: DEFAULT_GROUP
+        # 权重 取值范围：1-100 值越大，权重越大
+        # weight: 1
+
+dubbo:
+  protocol:
+    port: -1
+    name: dubbo
+  registry:
+    address: nacos://localhost:8848
+  consumer:
+    check: false
+
+seata:
+  # 分组名称，区分不同项目的分布式事务处理
+  tx-service-group: csmall_group
+  service:
+    vgroup-mapping:
+      # csmall_group组使用默认的seata配置完成事务
+      csmall_group: default
+    grouplist:
+      # 设置seata所在的地址(默认端口号：8091)
+      default: localhost:8091
+
+
+

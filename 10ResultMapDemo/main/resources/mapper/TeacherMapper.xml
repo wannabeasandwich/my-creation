@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.tedu.mapper.TeacherMapper">
+    <!--自动映射-->
+    <select id="selectTeacherById" resultType="Teacher">
+        SELECT id,
+               name,
+               age,
+               title,
+               manager,
+               salary,
+               comm,
+               gender g,
+               subject_id sid
+        FROM teacher
+        WHERE id = #{id}
+    </select>
+
+    <!--手动映射-->
+    <!--resultMap属性: 用于指定当前SQL的查询结果要使用哪个映射规则进行映射-->
+    <select id="selectTeacherById01" resultMap="t1">
+        SELECT id,
+               name,
+               age,
+               title,
+               manager,
+               salary,
+               comm,
+               gender,
+               subject_id
+        FROM teacher
+        WHERE id = #{id}
+    </select>
+
+    <!--由于SQL查询的结果包含了subject表中的所有字段内容,需要将这些内容映射到实体类中的一个属性中,所以必须要使用resultMap属性指定自定义映射规则-->
+    <select id="selectTeacherSubject" resultMap="t3">
+        SELECT t.id,
+               t.name,
+               t.age,
+               t.title,
+               t.manager,
+               t.salary,
+               t.comm,
+               t.gender,
+               t.subject_id,
+               s.id   sid, -- 如果两张表有同名字段时,手动映射,底层是分不清要赋值的字段是哪个表的字段,所以需要在定义SQL时,将字段起别名
+               s.name sname
+        FROM teacher t
+                 LEFT JOIN subject s ON t.subject_id = s.id
+        WHERE t.id = #{id}
+    </select>
+
+    <resultMap id="t3" type="Teacher" autoMapping="true">
+        <result column="subject_id" property="subjectId"/>
+        <!--association标签: 定义一对一映射的规则-->
+        <!--property属性: 用于指定实体类中哪个属性是需要进行一对一映射的属性-->
+        <!--javaType属性: 用于指定这个属性的类型是什么[不能省略]-->
+        <association property="subject" javaType="Subject" autoMapping="true">
+            <id column="sid" property="id"/>
+            <result column="sname" property="name"/>
+        </association>
+    </resultMap>
+
+    <resultMap id="t2" type="Teacher">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="age" property="age"/>
+        <result column="title" property="title"/>
+        <result column="manager" property="manager"/>
+        <result column="salary" property="salary"/>
+        <result column="comm" property="comm"/>
+        <result column="gender" property="gender"/>
+        <result column="subject_id" property="subjectId"/>
+        <!--自定义subject表字段和subject属性的映射关系-->
+        <!--如果查询的字段有别名,就指定别名和属性进行映射-->
+        <result column="sid" property="subject.id"/>
+        <result column="sname" property="subject.name"/>
+    </resultMap>
+
+    <!--手动映射也是可以开启自动映射的,适用于属性名和字段名向同时,但是依旧建议将所有字段映射直接明文写出-->
+    <resultMap id="t1" type="Teacher" autoMapping="true">
+        <result column="subject_id" property="subjectId"/>
+    </resultMap>
+
+    <!--resultMap标签: 用于定义自定义映射规则-->
+    <!--id属性: 由于自定义的映射规则,可能有多个,所以需要定义唯一标识-->
+    <!--type属性: 指定要和那个实体类进行映射,所以写该实体类的全路径名-->
+    <resultMap id="t" type="Teacher">
+        <!--id标签: 指定主键列的映射关系-->
+        <!--column属性: 用于指定表中的主键列-->
+        <!--property属性: 用于指定实体类中的对应属性-->
+        <id column="id" property="id"/>
+        <!--result标签: 指定普通列的映射关系-->
+        <!--column属性: 用于指定表中的普通列-->
+        <!--property属性: 用于指定实体类中的对应属性-->
+        <result column="name" property="name"/>
+        <result column="age" property="age"/>
+        <result column="title" property="title"/>
+        <result column="manager" property="manager"/>
+        <result column="salary" property="salary"/>
+        <result column="comm" property="comm"/>
+        <result column="gender" property="gender"/>
+        <result column="subject_id" property="subjectId"/>
+    </resultMap>
+</mapper>

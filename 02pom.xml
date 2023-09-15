@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <!--模型版本-->
+    <modelVersion>4.0.0</modelVersion>
+    <!--坐标信息: 可以唯一定位你的项目 -->
+    <groupId>cn.tedu</groupId> <!--表示公司-->
+    <artifactId>02MavenDemo</artifactId> <!--表示项目名-->
+    <version>1.0-SNAPSHOT</version> <!--表示版本-->
+    <!-- pom Project Object Model 项目对象模型 -->
+    <!--配置项目的信息-->
+    <properties>
+        <!--设置maven项目的JDK版本为8-->
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+    </properties>
+    <!--可以去指定下载的jar包的坐标-->
+    <dependencies><!--包裹多个依赖的坐标,整个文件只允许出现一个该标签-->
+        <dependency><!--包裹一个依赖的坐标,必须要写在dependencies标签中,可以定义多个-->
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.32</version>
+        </dependency>
+    </dependencies>
+</project>

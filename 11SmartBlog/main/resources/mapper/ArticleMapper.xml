@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.tedu.dao.ArticleDao">
+    <!--sql标签: 用于提取复用率较高的SQL片段-->
+    <!--id属性: SQL片段的唯一标识,可以利用该id引用该SQL片段-->
+    <sql id="a">
+        SELECT a.id aid,a.title,a.TYPE,a.content,a.STATUS,a.user_id,a.created_time,a.modified_time,
+               b.id bid,b.username,b.nickname,b.password,b.mobile,b.status,
+               c.id cid,c.article_id,c.tag_id,
+               d.id did,d.name,d.remark
+        FROM tb_articles a
+                 LEFT JOIN tb_users b ON a.user_id = b.id
+                 LEFT JOIN tb_article_tags c ON a.id = c.article_id
+                 LEFT JOIN tb_tags d ON c.tag_id = d.id
+    </sql>
+    <!--useGeneratedKeys属性: 表示使用自增主键-->
+    <!--keyProperty属性: 表示自增主键的值赋值给哪个属性-->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO tb_articles(title, TYPE, content, STATUS, user_id, created_time, modified_time)
+        VALUES (#{title}, #{type}, #{content}, #{status}, #{userId}, NOW(), NOW())
+    </insert>
+    <select id="selectById" resultMap="articleTag">
+        <include refid="a"/>
+        WHERE a.id = #{id};
+    </select>
+
+    <!--include标签: 表示此处引用SQL片段-->
+    <!--refid属性: 引用的SQL片段的ID-->
+    <select id="select" resultMap="articleTag">
+        <include refid="a"/>
+    </select>
+
+    <resultMap id="articleTag" type="Article" autoMapping="true">
+        <id column="aid" property="id"/>
+        <result property="title" column="title"></result>
+        <result property="type" column="type"></result>
+        <result property="content" column="content"></result>
+        <result property="status" column="status"></result>
+        <result property="userId" column="user_id"></result>
+        <result property="createdTime" column="created_time"></result>
+        <result property="modifiedTime" column="modified_time"></result>
+        <!--一篇文章和文章作者的关系是一对一-->
+        <association property="author" javaType="User">
+            <id column="bid" property="id"/>
+            <result property="username" column="username"/>
+            <result property="nickname" column="nickname"/>
+            <result property="password" column="password"/>
+            <result property="mobile" column="mobile"/>
+            <result property="status" column="status"/>
+        </association>
+        <!--一篇文章和标签的关系是一对多-->
+        <collection property="tagList" ofType="Tag">
+            <id column="did" property="id"/>
+            <result property="name" column="name"/>
+            <result property="remark" column="remark"/>
+        </collection>
+    </resultMap>
+</mapper>

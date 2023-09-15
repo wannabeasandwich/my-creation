@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!--Spring的配置文件-->
+    <!--将User对象的创建交给Spring管理,并编号为user1-->
+    <!--bean标签: 将指定的类交给Spring容器管理-->
+    <!--class属性: 指定要交给Spring容器管理的类的全路径(包名.类名)-->
+    <!--id属性: 当前类在Spring容器中的唯一标号(类似于数据库中主键的作用)-->
+    <bean id="user1" class="cn.tedu.pojo.User"></bean>
+    <!--通过set方式注入-->
+    <bean id="user4" class="cn.tedu.pojo.User">
+        <!--property标签: 使用set方式注入值-->
+        <!--name属性: 指定要调用的set方法,如果要调用setXxx(),name的值就是xxx(set后面的内容的首字母小写)-->
+        <!--value属性: 指定调用set方法时,要传入的值-->
+        <property name="name" value="夏始任"></property>
+        <property name="age" value="88"/><!--如果标签之间没内容,可以自闭-->
+    </bean>
+    <!--构造器注入-->
+    <bean id="user5" class="cn.tedu.pojo.User">
+        <!--constructor-arg标签: 指定使用构造器传参-->
+        <!--value属性: 传入构造器的值-->
+        <!--构造器需要几个参数,就需要传几个值,并且传值的顺序和构造器接收参数保持一致-->
+        <constructor-arg value="巍猪"></constructor-arg>
+        <constructor-arg value="34"></constructor-arg>
+    </bean>
+</beans>

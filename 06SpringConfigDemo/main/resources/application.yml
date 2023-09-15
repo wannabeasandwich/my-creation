@@ -1,0 +1,17 @@
+#user.username=tom
+#user.age=18
+#CTRL+ALT+L
+user:
+  username: tom
+  age: 18
+
+person:
+  username: jarry
+  age: 22
+  parent: true
+  birth: 1990/1/12
+
+jdbc:
+  url: jdbc:mysql://localhost:3306/tedu?useUnicode=true&characterEncoding=utf8&serverTimeZone=Asia/Shanghai
+  username: root
+  password: root

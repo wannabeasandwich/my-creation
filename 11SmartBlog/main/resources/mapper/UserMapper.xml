@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.tedu.dao.UserDao">
+    <insert id="insert">
+        INSERT INTO tb_users
+        (username, nickname, password, mobile, STATUS, created_time, modified_time)
+        VALUES (#{username}, #{nickname}, #{password}, #{mobile}, #{status}, #{createdTime}, #{modifiedTime})
+    </insert>
+    <!--set标签: 如果包裹的if条件生效,则会变换为SET关键字-->
+    <!--set标签: 如果包裹的if条件不生效,set标签则失效-->
+    <!--set标签: 会自动将set后最后一条更新语句中的逗号去除-->
+    <update id="update">
+        UPDATE tb_users
+        <set>
+            <if test="username!=null">username = #{username},</if>
+            <if test="nickname!=null">nickname = #{nickname},</if>
+            <if test="password!=null">password = #{password},</if>
+            <if test="mobile!=null">mobile = #{mobile},</if>
+            <if test="status!=null">status = #{status},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+    <!--foreach标签: 用于遍历传递过来的容器中的数据,并将数据按照指定的格式摆放-->
+    <!--collection属性: 指定要遍历接口中传递的哪个参数-->
+    <!--item属性: 声明变量,用于存储遍历出来的元素,可以使用占位符调用该值-->
+    <!--open属性: 添加起始字符,遍历的元素都会放在起始字符后-->
+    <!--close属性: 添加终止字符,遍历的元素都会放在终止字符前-->
+    <!--separator属性: 给遍历的元素之间添加分隔符-->
+    <update id="updateByIds">
+        UPDATE tb_users
+        SET status = #{status}
+        <where>
+            <choose>
+                <when test="ids!=null">
+                    id IN
+                    <foreach collection="ids" item="id" open="(" close=")" separator=",">
+                        #{id}
+                    </foreach>
+                </when>
+                <otherwise>
+                    1 = 2
+                </otherwise>
+            </choose>
+        </where>
+    </update>
+    <select id="list01" resultType="User">
+        SELECT *
+        FROM tb_users
+        WHERE created_time >= #{beginTime}
+          AND created_time &lt;= #{endTime}
+    </select>
+    <select id="list02" resultType="User">
+        SELECT * FROM tb_users
+        <if test="beginTime != null and endTime == null">
+            WHERE created_time >= #{beginTime}
+        </if>
+        <if test="beginTime == null and endTime != null">
+            WHERE created_time &lt;= #{endTime}
+        </if>
+        <if test="beginTime != null and endTime != null">
+            WHERE created_time >= #{beginTime} AND created_time &lt;= #{endTime}
+        </if>
+    </select>
+    <select id="list03" resultType="User">
+        SELECT * FROM tb_users
+        WHERE 1=1
+        <if test="beginTime != null">
+            AND created_time >= #{beginTime}
+        </if>
+        <if test="endTime != null">
+            AND created_time &lt;= #{endTime}
+        </if>
+    </select>
+    <!--①如果不输入任何的条件,执行SELECT * FROM tb_users;-->
+    <!--②如果只输入最小日期,则添加条件WHERE created_time >= #{beginTime}-->
+    <!--③如果只输入最大日期,则添加条件WHERE created_time <= #{endTime}-->
+    <!--④如果输入最大日期和最小日期,则添加条件WHERE created_time >= #{beginTime} AND created_time <= #{endTime}-->
+    <!--if标签: 判断条件如果成立,则显示其中的SQL语句,否则不显示-->
+    <!--test属性: 写判断表达式,如果表达式成立,显示SQL语句-->
+    <!--where标签: 包裹的if标签都不生效,意味着没有条件,此时where标签不生效-->
+    <!--where标签: 包裹的if标签有生效的,意味着有条件,此时where标签会变为where关键字-->
+    <!--where标签: 会自动识别第一个条件是否有AND关键字,如果有,则删除-->
+    <select id="list" resultType="User">
+        SELECT * FROM tb_users
+        <where>
+            <if test="beginTime != null">
+                AND created_time >= #{beginTime}
+            </if>
+            <if test="endTime != null">
+                AND created_time &lt;= #{endTime}
+            </if>
+        </where>
+    </select>
+</mapper>

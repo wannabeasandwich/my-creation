@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/tedu?useUnicode=true&characterEncoding=utf8&serverTimeZone=Asia/Shanghai
+    username: root
+    password: root
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true #开启驼峰规则
+  mapper-locations: classpath:mapper/*.xml #指定mapper配置文件的路径
+
+logging:
+  level:
+    cn:
+      tedu: debug

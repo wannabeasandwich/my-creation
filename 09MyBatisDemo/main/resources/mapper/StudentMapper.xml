@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--mapper标签用于定义多条SQL语句-->
+<!--namespace属性: 指定当前配置文件要绑定的接口的全路径-->
+<mapper namespace="cn.tedu.mapper.StudentMapper">
+    <!--public int insertStudent();-->
+    <insert id="insertStudent">
+        INSERT INTO student(id, name, age, gender, job, birth, location_id, team_leader, class_id)
+        VALUES ('6666', '猪八戒', 1234, '男', '分家大队长', NULL, 0, 0, 0)
+    </insert>
+
+    <insert id="insertStudent01">
+        INSERT INTO student(id, name, age, gender, job, birth, location_id, team_leader, class_id)
+        VALUES (#{id}, #{name}, #{age}, #{gender}, #{job}, #{birth}, #{locationId}, #{teamLeader}, #{classId})
+    </insert>
+
+    <!--public int updateStudent();-->
+    <update id="updateStudent">
+        UPDATE student
+        SET job = '净坛使者'
+        WHERE name = '猪八戒'
+    </update>
+
+    <!--public int updateStudent();-->
+    <update id="updateStudent01">
+        UPDATE student
+        SET job = #{job}
+        WHERE name = #{name}
+    </update>
+    <!--public int deleteStudent();-->
+    <delete id="deleteStudent">
+        DELETE
+        FROM student
+        WHERE name = '猪八戒'
+    </delete>
+
+    <!--public List<Student> selectStudent();-->
+    <!--select标签: 用于定义一条查询的SQL语句-->
+    <!--id属性: 指定要绑定的接口方法的方法名,id值在当前配置文件中是唯一的-->
+    <!--
+    resultType属性: 执行定义的查询SQL语句后,返回的查询要封装到哪个实体类中
+    ①一条记录,resultType指定要封装的实体类
+    ②多条记录,resultType指定要封装到的集合的泛型
+    -->
+    <select id="selectStudent" resultType="cn.tedu.pojo.Student">
+        SELECT id,
+               name,
+               age,
+               gender,
+               job,
+               birth,
+               location_id,
+               team_leader,
+               class_id
+        FROM student
+    </select>
+
+    <!--当SQL语句中,仅需要一个参数时,那么#{}占位符的名字可以起任意值,但是建议使用字段名作为占位符的名字-->
+    <select id="selectStudentById" resultType="cn.tedu.pojo.Student">
+        SELECT id,
+               name,
+               age,
+               gender,
+               job,
+               birth,
+               location_id,
+               team_leader,
+               class_id
+        FROM student
+        WHERE id = #{id}
+    </select>
+
+    <!--当SQL语句中,有多个占位符时,占位符的名字可以任意起,但是不能重名,最好和字段名相同-->
+    <select id="selectStudentByJobAndGender" resultType="cn.tedu.pojo.Student">
+        SELECT id,
+               name,
+               age,
+               gender,
+               job,
+               birth,
+               location_id,
+               team_leader,
+               class_id
+        FROM student
+        WHERE job = #{job}
+          AND gender = #{gender}
+    </select>
+    <!--当SQL语句中,有多个占位符时,并且多个占位符是给同一个字段赋值,那么占位符的名字则需要自定义-->
+    <!--
+    在XML文件中'<'默认含义是标签的起始符号,不会被认为是小于号使用,如果需要使用小于号,有以下方式:
+    ①使用特殊符: &lt;
+    ②使用CDATA区(在CDATA区中所有的特殊符号,都会被当做普通符号对待)
+    -->
+
+    <select id="selectStudentByBirth" resultType="cn.tedu.pojo.Student">
+        <![CDATA[
+        SELECT id,
+               name,
+               age,
+               gender,
+               job,
+               birth,
+               location_id,
+               team_leader,
+               class_id
+        FROM student
+        WHERE birth > #{minBirth}
+          AND birth < #{maxBirth}
+        ]]>
+    </select>
+</mapper>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.tedu.mapper.SubjectMapper">
+    <select id="selectSubjectTeacherByName" resultMap="s">
+        SELECT s.id,
+               s.name,
+               t.id tid,
+               t.name tname,
+               t.id,
+               t.name,
+               t.age,
+               t.title,
+               t.manager,
+               t.salary,
+               t.comm,
+               t.gender,
+               t.subject_id
+        FROM subject s,
+             teacher t
+        WHERE s.id = t.subject_id
+          AND s.name = #{name}
+    </select>
+
+    <resultMap id="s" type="Subject">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <!--collection标签: 定义一对多的关联关系的映射规则(一个科目对应多个老师)-->
+        <!--property属性: 用于指定实体类中哪个属性是需要进行一对多映射-->
+        <!--ofType属性: 用于指定该属性的类型-->
+        <collection property="teachers" ofType="Teacher">
+            <!--定义集合中的元素的封装规则-->
+            <id column="tid" property="id"/>
+            <result column="tname" property="name"/>
+            <result column="age" property="age"/>
+            <result column="title" property="title"/>
+            <result column="manager" property="manager"/>
+            <result column="salary" property="salary"/>
+            <result column="comm" property="comm"/>
+            <result column="gender" property="gender"/>
+            <result column="subject_id" property="subjectId"/>
+        </collection>
+    </resultMap>
+</mapper>

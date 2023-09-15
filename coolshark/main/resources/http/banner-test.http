@@ -1,0 +1,13 @@
+### 查询轮播图
+GET http://localhost/banner/list
+
+### 发布banner
+POST http://localhost/banner/insert
+Content-Type: application/json
+
+{
+  "url": "91540d01-2533-4a73-8147-bd9f74572e06.jpg"
+}
+
+### 基于id删除banner
+DELETE http://localhost/banner/delete/16
